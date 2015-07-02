@@ -1,0 +1,9 @@
+.reacterializeTextfield{
+  input{
+    text-align: center;
+    &:focus{
+      border-bottom: 1px solid $light-text !important;
+      box-shadow: 0 1px 0 0 $light-text !important;
+    }
+  }
+}

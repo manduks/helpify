@@ -1,0 +1,91 @@
+.candidateComponent{
+  width: 390px;
+  float: left;
+  padding: 5px;
+  margin-left: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+
+  &:hover{
+    .candidateInfo{
+      background-color: $primary;
+    }
+  }
+  .selected{
+      background-color: $primary !important;
+  }
+
+  .candidateInfo {
+    background-color: $primary;
+    background-color: lighten($primary, 10%);
+    display: block;
+    height: 176px;
+    width: 100%;
+    span{
+      @include roboto($roboto-normal);
+      bottom: 10px;
+      font-size: 1.5em;
+      color: $light-text;
+      line-height: 24px;
+      margin-left: 10px;
+      position: relative;
+      top: 150px;
+    }
+  }
+  .candidateActions {
+    background-color: $secondary;
+    height: 48px;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .status{
+      display: flex;
+      .circle{
+        border: 1px solid;
+        border-radius: 50%;
+        display: block;
+        height: 13px;
+        width: 13px;
+      }
+      .online{
+        @extend .circle;
+        background: $online;
+        border-color: $online-border;
+      }
+      .offline{
+        @extend .circle;
+        background: $offline;
+        border-color: $offline-border;
+      }
+      .busy{
+        @extend .circle;
+        background: $busy-border;
+        border-color: $busy-border;
+      }
+      .idle{
+        @extend .circle;
+        background: $idle;
+        border-color: $idle-border;
+      }
+      span{
+        @include roboto($roboto-thin);
+        color: $dark-text;
+        font-size: 13px;
+        line-height: 15px;
+        margin-left: 5px;
+      }
+    }
+    .actions{
+      a{
+        background-color: $accent;
+      }
+    }
+  }
+}

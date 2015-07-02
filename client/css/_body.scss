@@ -1,0 +1,22 @@
+body{
+  background-image: url(images/bg.png);
+  //background-image: url(images/bg6.jpeg);
+  background-size: 100% 683px;
+  background-repeat: no-repeat;
+  background-position: center 0px;
+  background-color: $light-background;
+  //background-color: $secondary;
+}
+.content{
+  @include outer-container;
+  height: 1465px;
+}
+
+.emptyRow{
+  @include fill-parent();
+  display: block;
+  height: 60px;
+  margin-top: 12px;
+  //background-color: #ccc;
+  opacity: 0.5;
+}

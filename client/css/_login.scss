@@ -1,0 +1,54 @@
+.loginContainer{
+  background-image: url(images/bg.png);
+  background-size: cover;
+  height:100%;
+  left:0;
+  position:absolute;
+  top:0;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loginCmp {
+    background: $light-background;
+    border-radius: 5px;
+    height: 442px;
+    width: 319px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .logo{
+      background-image: url(images/tamburine-pink.png);
+      display: block;
+      height: 111px;
+      margin-top: 40px;
+      width: 111px;
+      cursor: pointer;
+    }
+    span{
+      @include roboto($roboto-bold);
+      margin-top: 32px;
+      display: block;
+      font-size: 30px;
+      color: $primary;
+      line-height: 35px;
+    }
+    .loginButton{
+      @include roboto($roboto-normal);
+      align-items: center;
+      background: $accent;
+      border-radius: 2px;
+      color: $light-text;
+      display: flex;
+      font-size: 20px;
+      line-height: 24px;
+      justify-content: center;
+      height: 53px;
+      margin-top: 32px;
+      width: 226px;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+}

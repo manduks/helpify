@@ -1,0 +1,24 @@
+.reacterializeDropdown{
+  a{
+    color: $accent;
+  }
+  ul{
+    li{
+      span {
+        font-size: 1.2rem;
+        color: $dark-text;
+        display: block;
+        padding: 1rem 1rem;
+      }
+      &:hover{
+        background: $accent;
+        span {
+          color: $light-text;
+        }
+        .disabled{
+          background: $light-text;
+        }
+      }
+    }
+  }
+}

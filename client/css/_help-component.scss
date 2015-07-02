@@ -1,0 +1,47 @@
+$fontSize : 45px;
+
+.helpComponent{
+  @include roboto($roboto-normal);
+  @include fill-parent();
+  @include row();
+  //background: rgba(0, 0, 0, 0.5);
+  //border-radius: 5px;
+  color: $light-text;
+  font-size: $fontSize;
+  height: 218px;
+  line-height: 35px;
+  margin-top: 45px;
+  padding-top: 15px;
+  text-align:justify;
+  text-transform: uppercase;
+  .margin{
+    @include span-columns(0);
+    @include pad();
+  }
+  .helpText{
+    @include span-columns(12);
+    div{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      height: 55px;
+    }
+    .userName{
+      width: 415px;
+      input{
+        font-size: 45px;
+        line-height: 35px;
+        text-transform: uppercase;
+      }
+    }
+    .skill{
+      position: relative;
+      width: 690px;
+    }
+  }
+  b{
+    color: $accent;
+    @include roboto($roboto-light);
+  }
+}

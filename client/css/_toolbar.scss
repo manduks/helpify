@@ -1,0 +1,106 @@
+.toolbar{
+  @include fill-parent();
+  align-items: center;
+  color: $light-text;
+  display: flex;
+  flex-direction: row;
+  height: 53px;
+  margin-top: 40px;
+  width: 100%;
+  @include roboto($roboto-light);
+  font-size: 14px;
+  line-height: 16px;
+  .logo{
+    @include span-columns(1);
+    background-image: url(images/tamburine.png);
+    width: 53px;
+    height: 53px;
+    cursor: pointer;
+  }
+  .spacer{
+    @include span-columns(7);
+    @include pad();
+    display: block;
+  }
+  .navLink{
+    @include span-columns(1);
+    @include pad();
+    cursor: pointer;
+  }
+  .signUpBtn{
+    @include span-columns(2);
+    @include pad();
+    cursor: pointer;
+    div{
+      align-items: center;
+      border: 1px solid $accent;
+      color: $accent;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      line-height: 16px;
+      height: 36px;
+      text-align: center;
+      width: 140px;
+    }
+  }
+  .bubble{
+    display: none;
+  }
+  .user{
+    display: none;
+  }
+}
+.sessionActive{
+  .navLink{
+    display: none;
+  }
+  .signUpBtn{
+    display: none;
+  }
+  .spacer{
+    @include span-columns(8.5);
+    @include pad();
+    display: block;
+  }
+  .bubble{
+    margin-top: 23px;
+    display: block;
+    i{
+      color: $accent;
+      font-size: 48px;
+    }
+    span{
+      position: relative;
+      top: -34px;
+      left: 18px;
+    }
+  }
+  .user{
+    @include roboto($roboto-thin);
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    a{
+      color: $light-text;
+      i{
+        font-size: 20px;
+        float: left;
+        cursor: pointer;
+      }
+    }
+    div{
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    ul{
+      li{
+        a{
+          color: $dark-text;
+        }
+      }
+    }
+  }
+}

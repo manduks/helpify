@@ -1,0 +1,15 @@
+$light-text: #FFF;
+$dark-text: #4A4A4A;
+$light-background: white;
+$dark-background: black;
+$primary: #2A54C5;
+$secondary: #E0E0E0;
+$accent: #E61875;
+$online: #B8E986;
+$online-border: #7ED321;
+$offline: #D8D8D8;
+$offline-border: #979797;
+$busy: #F5A623;
+$busy-border: #D0021B;
+$idle: lighten($busy, 15%);
+$idle-border: lighten($busy, 15%);
