@@ -21,7 +21,6 @@ FilterComponent = React.createClass({
     )
   },
   handleFilterChange(item) {
-    console.log(12312);
     console.log(this.props);
     return this.props.filterChange && this.props.filterChange(item)
   }
