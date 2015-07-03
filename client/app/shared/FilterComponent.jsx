@@ -8,8 +8,6 @@ FilterComponent = React.createClass({
     };
   },
   render() {
-    console.log(arguments);
-    console.log(this.props);
     return (
       <Container className="filterComponent">
         <div className="fieldset">
@@ -21,7 +19,6 @@ FilterComponent = React.createClass({
     )
   },
   handleFilterChange(item) {
-    console.log(this.props);
     return this.props.filterChange && this.props.filterChange(item)
   }
 });

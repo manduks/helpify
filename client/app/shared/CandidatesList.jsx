@@ -2,19 +2,29 @@
  * The filter component
  */
 CandidatesList = React.createClass({
-  mixins: [ReactMeteorData],
+  /*mixins: [ReactMeteorData],
   getMeteorData(props, state) {
     var subscription = Meteor.subscribe("users");
     return {
       users: Meteor.users.find().fetch()
     }
+  },*/
+  getInitialState() {
+    return {
+      users : []
+    }
+  },
+  componentDidMount() {
+    this.setState({
+        users : this.props.users || []
+    });
   },
   render() {
     var me = this;
     return (
       <Container>
         <Container className="candidatesList" >
-          {this.data.users.map(function (user) {
+          {this.state.users.map(function (user) {
             var name = user.profile.name,
                 status = user.status || 'offline';
             return <CandidateComponent  ref={user._id} key={user._id} userName={name} status={status} onClick={me.handleClick.bind(me, user._id)}/>;
@@ -35,17 +45,5 @@ CandidatesList = React.createClass({
         }
       }
       this.refs[_id].setSelected(true);
-  },
-  filterCandidates(id) {
-    console.log(id);;
-    var sort = id === 1 ? {'profile.name' : 1} : { status: 1 };
-    var users = Meteor.users.find({},{
-      sort: sort
-    }).fetch();
-    this.data.users = users;
-    this.setData({
-      users : users
-    });
-    console.log(this);
   }
 });
