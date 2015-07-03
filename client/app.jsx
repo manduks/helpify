@@ -11,7 +11,7 @@ App = React.createClass({
       users       : Meteor.users.find().fetch()
     }
   },
-  componentDidMount() {},
+  componentDidMount() { },
   render() {
     // Show a loading indicator if data is not ready
     if (this.data.usersLoading) {
@@ -37,7 +37,7 @@ App = React.createClass({
         <div className="emptyRow"></div>
         <HelpMe/>
         <div className="emptyRow"></div>
-        <FilterComponent filterChange={this.handleFilterChange}/>
+        <FilterComponent matches={this.data.users.length} ref="filter" filterChange={this.handleFilterChange}/>
         <CandidatesList users={this.data.users} ref="candidatesList"/>
       </div>
     )
