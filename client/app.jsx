@@ -38,7 +38,7 @@ App = React.createClass({
         <HelpMe/>
         <div className="emptyRow"></div>
         <FilterComponent matches={this.data.users.length} ref="filter" filterChange={this.handleFilterChange}/>
-        <CandidatesList users={this.data.users} ref="candidatesList"/>
+        <CandidatesList users={this.data.users} reachButtonClick={this.handleReachButtonClick} ref="candidatesList"/>
       </div>
     )
   },
@@ -50,5 +50,13 @@ App = React.createClass({
       this.refs['candidatesList'].setState({
           users : users
       });
+      this.refs['candidatesList'].deselectAll();
+  },
+  handleReachButtonClick (user){
+    console.log(user);
+    if(!this.data.currentUser){
+      return FlowRouter.go("/login");
+    }
+    alert('go to chat');
   }
 });
