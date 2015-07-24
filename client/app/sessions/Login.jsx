@@ -26,7 +26,6 @@ Login = React.createClass({
             if (err) {
               throw new Meteor.Error("Facebook login failed");
             } else {
-                Helpers.setOnline();
                 FlowRouter.go('/');
             };
         });
@@ -36,7 +35,6 @@ Login = React.createClass({
             if (err) {
               throw new Meteor.Error("Twitter login failed");
             } else {
-                Helpers.setOnline();
                 FlowRouter.go('/');
             }
         });

@@ -6,7 +6,7 @@ CandidatesList = React.createClass({
   getMeteorData(props, state) {
     var subscription = Meteor.subscribe("users");
     return {
-      users: Meteor.users.find({},{ sort: this.state.sorter }).fetch()
+      users: Meteor.users.find({_id: {$not: Meteor.userId() }},{ sort: this.state.sorter }).fetch()
     }
   },
   getInitialState() {

@@ -4,8 +4,9 @@
 HelpMe = React.createClass({
   mixins: [ReactMeteorData],
   getInitialState() {
+    var userName = Meteor.user() && Meteor.user().profile && Meteor.user().profile.name;
     return {
-      userName  : Session.get('userName'),
+      userName  : userName || Session.get('userName'),
       learnSkill: Session.get('learnSkill'),
       teachSkill: Session.get('teachSkill')
     };
@@ -26,7 +27,7 @@ HelpMe = React.createClass({
           <div>
             <span>I AM &nbsp;</span>
               <b>
-                <TextField ref="userName" className="userName" onChange={this.handleUserNameChange} defaultValue={this.state.userName}/>
+                {Meteor.userId() ? this.state.userName : <TextField ref="userName" className="userName" onChange={this.handleUserNameChange} defaultValue={this.state.userName}/>}
               </b>
           </div>
           <div>
