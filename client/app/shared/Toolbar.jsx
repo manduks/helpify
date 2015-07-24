@@ -24,7 +24,7 @@ Toolbar = React.createClass({
         <div className="signUpBtn" onClick={this.onLogin}><div>SIGN UP FREE</div></div>
         <div className="bubble"><i className="mdi-communication-messenger"></i><span>88</span></div>
         <div className="user">
-          <div>{userName} Lopez Lopes</div>
+          <div>{userName}</div>
             <a className="dropdown-button" data-activates="userDropDown">
               <i className="mdi-hardware-keyboard-arrow-down"></i>
             </a>

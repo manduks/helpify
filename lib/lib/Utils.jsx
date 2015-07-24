@@ -10,6 +10,16 @@ Utils = function () {
       }
       return s4() + s4() + idSeparator + s4() + idSeparator + s4() + idSeparator +
         s4() + idSeparator + s4() + s4() + s4();
+    },
+    setOnline (){
+      if (Meteor.userId()) {
+          Meteor.users.update({ _id: Meteor.userId() }, {$set: {"profile.online": true}});
+      }
+    },
+    requiredLogin(path, next) {
+      var redirectPath = (!Meteor.userId())? "/login" : null;
+      //this.setOnline();
+      next(redirectPath);
     }
   }
 }();

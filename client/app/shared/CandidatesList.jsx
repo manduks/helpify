@@ -2,34 +2,30 @@
  * The filter component
  */
 CandidatesList = React.createClass({
-  /*mixins: [ReactMeteorData],
+  mixins: [ReactMeteorData],
   getMeteorData(props, state) {
     var subscription = Meteor.subscribe("users");
     return {
-      users: Meteor.users.find().fetch()
+      users: Meteor.users.find({},{ sort: this.state.sorter }).fetch()
     }
-  },*/
+  },
   getInitialState() {
     return {
-      users       : [],
       reachButton : 'disabled',
-      selectedUser: null
+      selectedUser: null,
+      sorter      : {'profile.name' : 1}
     };
-  },
-  componentDidMount() {
-    this.setState({
-        users : this.props.users || []
-    });
   },
   render() {
     var me = this,
         btnCls = 'btn-floating btn-large '  + this.state.reachButton;
     return (
       <Container>
+        <FilterComponent filterChange={this.handleFilterChange}/>
         <Container className="candidatesList" >
-          {this.state.users.map(function (user) {
+          {this.data.users.map(function (user) {
             var name = user.profile.name,
-                status = user.status || 'offline';
+                status = user.profile && user.status.online  ? 'online' : 'offline';
             return <CandidateComponent  ref={user._id} key={user._id} userName={name} status={status} onClick={me.handleClick.bind(me, user)}/>;
           }, me)}
         </Container>
@@ -48,7 +44,7 @@ CandidatesList = React.createClass({
           reachButton : 'enable'
       });
   },
-  selectOne (user) {
+  selectOne(user) {
     this.refs[user._id].setSelected(true);
     this.setState({
         selectedUser: user
@@ -67,8 +63,17 @@ CandidatesList = React.createClass({
   },
   handleReachButtonClick () {
     if (this.state.reachButton !== 'disabled') {
-      this.props.reachButtonClick(this.state.selectedUser);
       Session.set('user', this.state.selectedUser);
+      if(! Meteor.userId()){
+        return FlowRouter.go("/login");
+      }
+      alert('go to chat');
     }
+  },
+  handleFilterChange(item) {
+    this.setState({
+        sorter: item._id === 1 ? {'profile.name' : 1} : {'status.online' : -1}
+    });
+    this.deselectAll();
   }
 });

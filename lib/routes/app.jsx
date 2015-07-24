@@ -1,8 +1,6 @@
 FlowRouter.route('/', {
-    subscriptions: function() {
-       //Meteor.subscribe("users");
-    },
     action: function(params) {
+      Utils.setOnline();
       React.render(<App />, document.body);
     }
 });

@@ -6,9 +6,7 @@ App = React.createClass({
   getMeteorData(props, state) {
     var sub = Meteor.subscribe("users");
     return {
-      usersLoading: !sub.ready(),
-      currentUser : Meteor.user(),
-      users       : Meteor.users.find().fetch()
+      usersLoading: !sub.ready()
     }
   },
   componentDidMount() { },
@@ -17,14 +15,13 @@ App = React.createClass({
     if (this.data.usersLoading) {
       return <LoadingSpinner />;
     }
-    if (this.data.currentUser) {
+    if (Meteor.userId()) {
       return (
         <div className="content">
           <Toolbar/>
           <HelpMe/>
           <div className="emptyRow"></div>
-          <FilterComponent filterChange={this.handleFilterChange}/>
-          <CandidatesList users={this.data.users} ref="candidatesList"/>
+          <CandidatesList ref="candidatesList"/>
         </div>
       )
     }
@@ -37,26 +34,8 @@ App = React.createClass({
         <div className="emptyRow"></div>
         <HelpMe/>
         <div className="emptyRow"></div>
-        <FilterComponent matches={this.data.users.length} ref="filter" filterChange={this.handleFilterChange}/>
-        <CandidatesList users={this.data.users} reachButtonClick={this.handleReachButtonClick} ref="candidatesList"/>
+        <CandidatesList  ref="candidatesList"/>
       </div>
     )
-  },
-  handleFilterChange(item) {
-      var sort = item._id === 1 ? {'profile.name' : 1} : {'profile.name' : -1},
-          users = Meteor.users.find({},{
-            sort: sort
-          }).fetch();
-      this.refs['candidatesList'].setState({
-          users : users
-      });
-      this.refs['candidatesList'].deselectAll();
-  },
-  handleReachButtonClick (user){
-    console.log(user);
-    if(!this.data.currentUser){
-      return FlowRouter.go("/login");
-    }
-    alert('go to chat');
   }
 });
