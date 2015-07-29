@@ -10,8 +10,8 @@ wolves:neat
 wolves:bourbon
 service-configuration
 materialize:materialize
-meteorhacks:flow-router
 fourseven:scss
 accounts-twitter
 accounts-facebook
 mizzao:user-status
+kadira:flow-router

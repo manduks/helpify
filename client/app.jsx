@@ -6,7 +6,8 @@ App = React.createClass({
   getMeteorData(props, state) {
     var sub = Meteor.subscribe("users");
     return {
-      usersLoading: !sub.ready()
+      usersLoading: !sub.ready(),
+      user : Meteor.userId()
     }
   },
   componentDidMount() { },
@@ -15,7 +16,7 @@ App = React.createClass({
     if (this.data.usersLoading) {
       return <LoadingSpinner />;
     }
-    if (Meteor.userId()) {
+    if (this.data.user) {
       return (
         <div className="content">
           <Toolbar/>

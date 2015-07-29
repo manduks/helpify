@@ -67,7 +67,7 @@ CandidatesList = React.createClass({
       if(! Meteor.userId()){
         return FlowRouter.go("/login");
       }
-      alert('go to chat');
+      return FlowRouter.go('/join/' + this.state.selectedUser._id);
     }
   },
   handleFilterChange(item) {
