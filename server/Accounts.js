@@ -15,3 +15,11 @@ ServiceConfiguration.configurations.insert({
     consumerKey: 'SBdsNROyRbpQP2Bw6beUzw',
     secret     : 'V0CnmFNQSVE1AeFaWUAuVOjclGmkiGyJII3PIYtDDo'
 });
+
+Accounts.onCreateUser(function(options, user) {
+    if (options.profile) {
+        user.profile = options.profile;
+        user.profile.avatar = user.services['twitter'] ? user.services['twitter'].profile_image_url: 'http://graph.facebook.com/' + user.services['facebook'].id + '/picture?type=square&height=160&width=160';
+    }
+    return user;
+});

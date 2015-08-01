@@ -15,6 +15,45 @@
     border: 1px solid $dark-text;
     .messages{
       flex: 1;
+      overflow: scroll;
+      padding: 20px;
+      padding-top: 0px;
+      margin-top: -18px;
+      .message{
+        border-top: 1px solid lighten($dark-text, 60%);
+        display: flex;
+        flex-direction: row;
+        margin-top: 20px;
+        padding-top: 10px;
+        img{
+          border-radius: 4px;
+          height: 32px;
+          width: 32px;
+        }
+        .info{
+            margin-left: 20px;
+            flex: 1;
+            .header{
+              @include roboto($roboto-light);
+              display: flex;
+              flex-direction: row;
+              font-size: 12px;
+              justify-content:space-between;
+              width: 100%;
+              .name{
+                color: $dark-text;
+              }
+              .log{
+                color: lighten($dark-text, 30%);
+              }
+            }
+            .text{
+              @include roboto($roboto-normal);
+              font-size: 16px;
+              margin-top: 8px;
+            }
+        }
+      }
     }
     .messageBox{
       display: flex;
@@ -23,7 +62,7 @@
       height: 50px;
       padding: 1px;
       border-top: 1px solid darken($secondary, 10%) !important;
-      .message{
+      .messageInput{
         flex: 1;
         height: 40px;
         input{

@@ -15,5 +15,8 @@ TextField = React.createClass({
   },
   getValue() {
     return this.getDOMNode().getElementsByTagName('input')[0].value;
+  },
+  setValue(value) {
+    this.getDOMNode().getElementsByTagName('input')[0].value = value;
   }
 });
