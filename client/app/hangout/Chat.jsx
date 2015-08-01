@@ -4,12 +4,13 @@
 Chat = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    var subscription = Meteor.subscribe("messages"),
+    var messages = Meteor.subscribe("messages"),
         users = Meteor.subscribe("users");
     return {
-      loadingUsers: !users.ready(),
-      messages    : Messages.find({usersHash: this.state.usersHash}).fetch(),
-      userTo      : Meteor.users.find({_id: this.props.userId}).fetch()[0]
+      loadingUsers   : !users.ready(),
+      loadingMessages: !messages.ready(),
+      messages       : Messages.find({usersHash: this.state.usersHash}).fetch(),
+      userTo         : Meteor.users.find({_id: this.props.userId}).fetch()[0]
     }
   },
   getInitialState() {
@@ -21,6 +22,12 @@ Chat = React.createClass({
       this.setState({
         usersHash: Utils.generateUsersHash(Meteor.userId(), this.props.userId)
       });
+  },
+  componentDidUpdate(){
+    if (this.data.loadingMessages) {
+      return;
+    }
+    $("#messagesContainer").animate({ scrollTop: $("#messagesContainer")[0].scrollHeight }, 1000);
   },
   render() {
     var user = {};
@@ -58,7 +65,6 @@ Chat = React.createClass({
           createdAt: new Date()
       });
       this.refs.messageInput.setValue('');
-      $("#messagesContainer").animate({ scrollTop: $("#messagesContainer")[0].scrollHeight }, 1000);
     }
   },
   handleMessageKeyPress(e){
