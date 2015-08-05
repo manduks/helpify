@@ -9,13 +9,15 @@ Chat = React.createClass({
     return {
       loadingUsers   : !users.ready(),
       loadingMessages: !messages.ready(),
-      messages       : Messages.find({usersHash: this.state.usersHash}).fetch(),
+      messages       : Messages.find({usersHash: this.state.usersHash}, {limit: (this.state.page * this.state.pageSize) , sort: {createdAt: -1}}).fetch(),
       userTo         : Meteor.users.find({_id: this.props.userId}).fetch()[0]
     }
   },
   getInitialState() {
     return {
-      userHash : null
+      userHash: null,
+      page    : 1,
+      pageSize: 2
     };
   },
   componentDidMount(){
@@ -27,7 +29,8 @@ Chat = React.createClass({
     if (this.data.loadingMessages) {
       return;
     }
-    $("#messagesContainer").animate({ scrollTop: $("#messagesContainer")[0].scrollHeight }, 1000);
+    $('#messagesContainer').animate({ scrollTop: $('#messagesContainer')[0].scrollHeight }, 1000);
+    this.initializeScroll();
   },
   render() {
     var user = {};
@@ -71,5 +74,17 @@ Chat = React.createClass({
     if (e.keyCode == 13) {
       this.sendMessage();
     }
+  },
+  initializeScroll(){
+    var me = this;
+    $("#messagesContainer").scroll(function() {
+        var scrolledpx = parseInt($("#messagesContainer").scrollTop());
+        console.log(scrolledpx);
+        if (scrolledpx === 0) {
+          me.setState({
+            page: me.state.page + 1
+          });
+        }
+    });
   }
 });
