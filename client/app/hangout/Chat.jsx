@@ -5,19 +5,21 @@ Chat = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     var messages = Meteor.subscribe("messages"),
-        users = Meteor.subscribe("users");
+        users = Meteor.subscribe("users"),
+        limit = this.state.page * this.state.pageSize;
     return {
       loadingUsers   : !users.ready(),
       loadingMessages: !messages.ready(),
-      messages       : Messages.find({usersHash: this.state.usersHash}, {limit: (this.state.page * this.state.pageSize) , sort: {createdAt: -1}}).fetch(),
-      userTo         : Meteor.users.find({_id: this.props.userId}).fetch()[0]
+      messages       : Messages.find({usersHash: this.state.usersHash}, {limit: limit , sort: {createdAt: -1}}).fetch().reverse(),
+      userTo         : Meteor.users.find({_id: this.props.userId}).fetch()[0],
+      total          : Messages.find({usersHash: this.state.usersHash}).fetch().length
     }
   },
   getInitialState() {
     return {
       userHash: null,
       page    : 1,
-      pageSize: 2
+      pageSize: 5
     };
   },
   componentDidMount(){
@@ -29,7 +31,6 @@ Chat = React.createClass({
     if (this.data.loadingMessages) {
       return;
     }
-    $('#messagesContainer').animate({ scrollTop: $('#messagesContainer')[0].scrollHeight }, 1000);
     this.initializeScroll();
   },
   render() {
@@ -68,6 +69,7 @@ Chat = React.createClass({
           createdAt: new Date()
       });
       this.refs.messageInput.setValue('');
+      $('#messagesContainer').animate({ scrollTop: $('#messagesContainer')[0].scrollHeight }, 1000);
     }
   },
   handleMessageKeyPress(e){
@@ -76,14 +78,22 @@ Chat = React.createClass({
     }
   },
   initializeScroll(){
-    var me = this;
+    var me = this,
+        total = (me.state.page + 1) * me.state.pageSize;
+    if (me.initilized) {
+      return;
+    }
+    me.initilized = true;
+    //initialize scrolling
+    $('#messagesContainer').animate({ scrollTop: $('#messagesContainer')[0].scrollHeight }, 1000);
     $("#messagesContainer").scroll(function() {
         var scrolledpx = parseInt($("#messagesContainer").scrollTop());
-        console.log(scrolledpx);
         if (scrolledpx === 0) {
-          me.setState({
-            page: me.state.page + 1
-          });
+          if (total < me.data.total) {
+            me.setState({
+              page: me.state.page + 1
+            });
+          }
         }
     });
   }
