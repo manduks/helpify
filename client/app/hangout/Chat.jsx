@@ -19,12 +19,19 @@ Chat = React.createClass({
     return {
       userHash: null,
       page    : 1,
-      pageSize: 5
+      pageSize: 20
     };
   },
   componentDidMount(){
+      var hash = Utils.generateUsersHash(Meteor.userId(), this.props.userId);
       this.setState({
-        usersHash: Utils.generateUsersHash(Meteor.userId(), this.props.userId)
+        usersHash: hash
+      });
+
+      Meteor.call('newConversation', {
+          usersHash: hash,
+          users    : [Meteor.userId(), this.props.userId],
+          createdAt: new Date()
       });
   },
   componentDidUpdate(){
@@ -79,7 +86,8 @@ Chat = React.createClass({
   },
   initializeScroll(){
     var me = this,
-        total = (me.state.page + 1) * me.state.pageSize;
+        totalPages = parseInt(me.data.total / me.state.pageSize);
+        totalPages = (me.data.total % me.state.pageSize) ? totalPages + 1 : totalPages;
     if (me.initilized) {
       return;
     }
@@ -89,7 +97,7 @@ Chat = React.createClass({
     $("#messagesContainer").scroll(function() {
         var scrolledpx = parseInt($("#messagesContainer").scrollTop());
         if (scrolledpx === 0) {
-          if (total < me.data.total) {
+          if (me.state.page <= totalPages) {
             me.setState({
               page: me.state.page + 1
             });

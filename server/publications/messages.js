@@ -3,9 +3,7 @@ Meteor.publish('messages', function () {
 });
 
 Messages.allow({
-    'insert': function (userId,doc) {
-      /* user and doc checks ,
-      return true to allow insert */
-      return true;
+    'insert': function (userId, doc) {
+      return userId;
     }
   });

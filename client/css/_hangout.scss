@@ -10,7 +10,7 @@
   .chat{
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 2;
     min-height: 100%;
     border: 1px solid $dark-text;
     .messages{
@@ -37,7 +37,7 @@
               @include roboto($roboto-light);
               display: flex;
               flex-direction: row;
-              font-size: 12px;
+              font-size: 11px;
               justify-content:space-between;
               width: 100%;
               .name{
@@ -49,7 +49,7 @@
             }
             .text{
               @include roboto($roboto-normal);
-              font-size: 16px;
+              font-size: 14px;
               margin-top: 8px;
             }
         }
@@ -87,7 +87,81 @@
   }
   .video{
     background-color: $dark-text;
-    flex: 3;
+    border: 1px solid red;
+    flex: 5;
     min-height: 100%;
+    position: relative;
+    #remoteVideo{
+      border: 1px solid red;
+      width: 100% !important;
+      min-height: 100% !important;
+    }
+    #localVideo{
+      position: absolute;
+		  bottom: 10px;
+		  right:10px;
+      width: 150px;
+    }
+  }
+  .conversations{
+    flex: 1.5;
+    .title{
+      @include roboto($roboto-light);
+      background-color: lighten($accent, 5%);
+      color: $light-text;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 10px;
+      text-align: left;
+      width: 100%;
+      .close{
+        cursor: pointer;
+      }
+    }
+    ul{
+      li{
+        border-bottom: 1px solid lighten($accent, 10%);
+        border-bottom: 1px solid lighten($dark-text, 60%);;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        padding: 5px;
+        &:hover{
+          background: lighten($dark-text, 65%)
+        }
+        img{
+          border-radius: 4px;
+          height: 32px;
+          width: 32px;
+        }
+        .converstionInfo {
+          @include roboto($roboto-normal) ;
+          align-items:center;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          .circle{
+            border: 1px solid;
+            border-radius: 50%;
+            display: block;
+            height: 7px;
+            margin: 2px 0 0 10px;
+            width: 7px;
+          }
+          .online{
+            @extend .circle;
+            background: $online;
+            border-color: $online-border;
+          }
+          .offline{
+            @extend .circle;
+            background: $offline;
+            border-color: $offline-border;
+          }
+        }
+      }
+    }
   }
 }

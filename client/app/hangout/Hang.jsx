@@ -2,23 +2,28 @@
  * The hang component
  */
 Hang = React.createClass({
-  componentDidMounttt() {
-    gapi.hangout.onApiReady.add(function(eventObj) {
-      gapi.hangout.render('hangout-div', {
-        //'topic'       : 'Helpify',
-        'render'      : 'createhangout',
-        'hangout_type':'onair',
-        'broadcast'   : true,
-        'initial_apps': [
-          { app_id : 'AIzaSyBDz6G_bh5wi5OVqDaLsf9cssihHq', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }
-        ]
-      });
+  componentDidMount() {
+    var webrtc = new SimpleWebRTC({
+        // the id/element dom element that will hold "our" video
+        localVideoEl: 'localVideo',
+        // the id/element dom element that will hold remote videos
+        remoteVideosEl: 'remoteVideo',
+        // immediately ask for camera access
+        autoRequestMedia: true
+    });
+    // we have to wait until it's ready
+    webrtc.on('readyToCall', function () {
+        // you can name it anything
+        webrtc.joinRoom('your awesome room name');
     });
   },
   render() {
     return (
       <div className="hangout">
-        <div className="video" id="hangout-div">
+        <ConversationsList userId={this.props.userId}/>
+        <div className="video">
+          <video id="localVideo"></video>
+          <div id="remoteVideo"></div>
         </div>
         <Chat userId={this.props.userId}/>
       </div>
